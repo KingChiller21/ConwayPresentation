@@ -58,3 +58,14 @@ test('fixed /live stream waits before start, broadcasts to 8, and survives chang
   const last=await(await fetch(base+'/api/live')).json();assert.equal(last.name,'rules');
  }finally{abort.abort();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}
 });
+
+test('viewer UI keeps generation and raster visible without rules, including mobile layout',()=>{
+ const fs=require('node:fs'),path=require('node:path');
+ const html=fs.readFileSync(path.join(__dirname,'../public/index.html'),'utf8');
+ const js=fs.readFileSync(path.join(__dirname,'../public/app.js'),'utf8');
+ const css=fs.readFileSync(path.join(__dirname,'../public/style.css'),'utf8');
+ assert.match(html,/id="gen"/);assert.match(html,/id="size"/);
+ assert.match(js,/\$\('ruleHint'\)\.hidden=mode==='viewer'/);
+ assert.match(css,/\.workspace\.viewer #ruleHint\{display:none!important\}/);
+ assert.doesNotMatch(css,/\.metric-size\{display:none\}/);
+});
