@@ -1,6 +1,6 @@
 # Conway Presentation · V0.2 (Vortrag am 09.12.2026)
 
-Unabhängige Node.js-Anwendung für einen synchronisierten Live-Vortrag über Emergenz und Conway's Game of Life. **Ohne Datenbank und ohne externe Node-Pakete.** V0.1 bleibt in GitHub `main` unverändert, bis V0.2 nach einem Gerätetest übernommen wird.
+Unabhängige Node.js-Anwendung für einen synchronisierten Live-Vortrag über Emergenz und Conway's Game of Life. **Ohne Datenbank und ohne externe Node-Pakete.** V0.1 ist weiterhin im Git-Verlauf sowie als eigenständige Offline-Datei erhalten. V0.2 ersetzt die bisherige Online-Version nach Freigabe durch den Moderator.
 
 ## Lokal starten
 
@@ -21,7 +21,7 @@ Der eingebundene QR-Code zeigt bewusst auf die **Produktiv-URL auf Render** und 
 
 1. Der Moderator öffnet `/` und klickt **Präsentation als Moderator starten**. Der Moderator-Schlüssel wird nur im Browser gespeichert; die Teilnehmer erhalten ihn nicht.
 2. Zuschauer öffnen `/live`, entweder über Link oder QR-Code. Das geht auch **vor** dem eigentlichen Vortrag. Sie warten dort automatisch auf die Simulation. Der Link bleibt bei erneuter Sitzung unverändert.
-3. Die Geräte können unabhängig Hell-/Dunkelmodus, Zoom und Vollbild verwenden. Eine gut sichtbare Generationenzahl ist auch bei den Zuschauern eingeblendet.
+3. Die Geräte können unabhängig Hell-/Dunkelmodus, Zoom und Vollbild verwenden. Die Zuschauer sehen Generation, lebende Zellen und Rastergröße auch auf Tablets und schmalen Smartphone-Displays; die Regelparameter bleiben vollständig ausgeblendet.
 4. Der Moderator schaltet zwischen fünf vorbereiteten Leveln. **Jeder Levelwechsel setzt die Welt auf ihren definierten Startzustand und Generation 0 zurück.**
 5. Zum Platzieren: Simulation pausieren, Muster wählen, auf das Raster tippen. „Einzelzelle“ schaltet Zellen einzeln an/aus. Rechtsklick entfernt ein platziertes Muster. Kurzbefehle: Leertaste Start/Pause, `N` Einzelschritt, `1`–`5` Levelwechsel.
 6. Regienotizen und konkrete Regeln sind nur in der Moderatoroberfläche sichtbar. Beim Finale wird der veränderte Geburtswert über den kompakten Zuschauerstream nicht übertragen.
@@ -49,7 +49,7 @@ Die Altersfarbe verläuft von Weiß über Gold bis Rot auf dunklem Hintergrund. 
 
 ## Vorbereitungen für den Vortragstag
 
-1. V0.2 auf einem separaten Branch prüfen; V0.1 erst nach erfolgreichem Test ersetzen.
+1. V0.2 auf einem separaten Branch und lokal prüfen, anschließend den freigegebenen Stand nach `main` übernehmen.
 2. Für die Live-Adresse eine HTTPS-Render-Instanz starten und QR-Code mit dem Xiaomi 13T scannen.
 3. Zuschaueransicht **vorher** auf zwei Tablets öffnen; beide sollten in den Wartezustand gelangen und nach Moderatorstart automatisch Generation 0 anzeigen.
 4. Moderator startet Level 5, setzt eine Generation fort (1 → 8 Zellen), variiert Geschwindigkeit, schaltet eine Sitzung neu; Zuschauer bleiben unter `/live`.
