@@ -1,1 +1,70 @@
-<!doctype html><html lang="de" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="Conway's Game of Life – Live-Präsentation"><title>Conway · Live</title><link rel="stylesheet" href="style.css"></head><body><header><div class="brand"><span class="mark" aria-hidden="true">▦</span><div><b>CONWAY</b><small>GAME OF LIFE · LIVE</small></div></div><div class="header-actions"><span id="status" class="status">Bereit</span><button id="theme" title="Farbschema wechseln">Hell</button><button id="full" title="Vollbild">Vollbild</button></div></header><main><section id="home" class="home"><div class="eyebrow">09. DEZEMBER 2026 · INTERAKTIVER VORTRAG</div><h1>Aus Regeln<br>entsteht Ordnung.</h1><p>Ein Raster. Zwei Zellzustände. Drei einfache Regeln. Erleben Sie gemeinsam Conway’s Game of Life.</p><div class="home-actions"><button id="create" class="primary">Präsentation starten</button><button id="offline">Einzelgerät / Offline</button></div><form id="join"><label for="code">Sitzung beitreten</label><div class="join-row"><input id="code" placeholder="Sitzungscode" maxlength="16" autocomplete="off"><button>Beitreten</button></div></form><p id="homeError" class="error" role="alert"></p><div class="rule-note"><b>B3/S23</b> · Geburt bei 3 Nachbarn · Überleben bei 2 oder 3 · sonst Tod</div></section><section id="session" hidden><div class="session-bar"><div><div class="eyebrow" id="role">MODERATOR</div><h1 id="levelLabel">Die Regeln</h1></div><div class="metrics"><div><small>GENERATION</small><strong id="gen">0</strong></div><div><small>LEBEND</small><strong id="pop">0</strong></div><div><small>RASTER</small><strong id="size">5 × 5</strong></div></div></div><div class="workspace"><div class="board-panel"><canvas id="board" role="img" aria-label="Conway-Zellraster"></canvas><div class="board-bottom"><span>B3/S23 · Feste Ränder</span><div><button id="zoomOut" title="Verkleinern">−</button><button id="zoomReset">100 %</button><button id="zoomIn" title="Vergrößern">+</button></div></div></div><aside id="controls"><div class="section-label">SIMULATION</div><div class="buttons"><button class="primary" id="run">Start</button><button id="step">+ 1 Generation</button><button id="reset">Reset</button><button id="clear">Leeren</button></div><label class="speed-label" for="speed">Tempo <output id="speedValue">4 Gen/s</output></label><input id="speed" type="range" min="1" max="15" value="4"><div class="section-label">DEMONSTRATIONEN</div><div id="levels" class="levels"></div><p class="hint">Im pausierten Zustand Zellen durch Antippen ändern.</p><div id="sharePanel" hidden><div class="section-label">ZUSCHAUER EINLADEN</div><div class="session-code" id="sessionCode"></div><button id="copy" class="share">Zuschauerlink kopieren</button><a id="viewerLink" target="_blank" rel="noopener">Zuschaueransicht öffnen</a></div><p id="error" class="error" role="alert"></p></aside></div><p id="viewerHint" class="viewer-hint" hidden>Die Simulation wird vom Moderator gesteuert. Darstellung und Zoom sind individuell.</p></section></main><script src="life.js"></script><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="de" data-theme="dark">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+ <meta name="description" content="Conway's Game of Life – eine gemeinsame Live-Präsentation">
+ <title>Conway · Live-Präsentation</title>
+ <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+ <header>
+  <div class="brand"><span class="mark" aria-hidden="true">▦</span><div><b>CONWAY</b><small>GAME OF LIFE · LIVE</small></div></div>
+  <div class="header-actions"><span id="status" class="status" aria-live="polite">Bereit</span><button id="theme" title="Hell-/Dunkelmodus umschalten">Hell</button><button id="full" title="Vollbild öffnen oder schließen">Vollbild</button></div>
+ </header>
+ <main>
+  <section id="home" class="home">
+   <div class="eyebrow">09. DEZEMBER 2026 · INTERAKTIVER VORTRAG</div>
+   <h1>Aus Regeln<br>entsteht Ordnung.</h1>
+   <p>Ein Raster. Zwei Zustände. Wenige Regeln. Eine faszinierende gemeinsame Entdeckungsreise durch Conways Game of Life.</p>
+   <div class="home-actions"><button id="create" class="primary">Präsentation als Moderator starten</button><button id="offline">Auf diesem Gerät testen</button></div>
+   <div class="audience-link"><b>Sie sind Zuschauer?</b><span>Öffnen Sie die feste Zuschaueransicht. Sie verbindet sich automatisch, sobald die Präsentation startet.</span><a href="/live">Zur Zuschaueransicht</a></div>
+   <form id="join"><label for="code">Alternativ: ältere Sitzung über Code öffnen</label><div class="join-row"><input id="code" placeholder="16-stelliger Sitzungscode" maxlength="16" autocomplete="off"><button>Beitreten</button></div></form>
+   <p id="homeError" class="error" role="alert"></p>
+  </section>
+  <section id="session" hidden>
+   <div class="session-bar">
+    <div><div class="eyebrow" id="role">MODERATOR</div><h1 id="levelLabel">Conway Rules</h1></div>
+    <div class="metrics">
+     <div class="metric-gen"><small>GENERATION</small><strong id="gen">0</strong></div>
+     <div><small>LEBENDE ZELLEN</small><strong id="pop">0</strong></div>
+     <div class="metric-size"><small>RASTER</small><strong id="size">7 × 7</strong></div>
+    </div>
+   </div>
+   <div class="workspace">
+    <div class="board-panel">
+     <div class="board-area">
+      <canvas id="board" role="img" aria-label="Live-Zellraster für Conways Game of Life"></canvas>
+      <div id="waitingPanel" class="waiting-panel" hidden><div class="waiting-icon">▦</div><h2>Warten auf die Präsentation</h2><p>Sie sind am richtigen Ort. Sobald der Moderator startet, erscheint die Simulation automatisch.</p><span class="waiting-pulse">Verbindung wird gehalten</span></div>
+     </div>
+     <div class="board-bottom"><span id="ruleHint">B3/S23 · Feste Ränder</span><div class="zoom-tools"><button id="zoomOut" title="Verkleinern">−</button><button id="zoomReset">100 %</button><button id="zoomIn" title="Vergrößern">+</button></div></div>
+    </div>
+    <aside id="controls">
+     <div class="section-label">SIMULATION</div>
+     <div class="buttons"><button class="primary" id="run">Start</button><button id="step">+ 1 Generation</button><button id="reset">Zurücksetzen</button><button id="clear">Raster leeren</button></div>
+     <label class="speed-label" for="speed">Geschwindigkeit <output id="speedValue">5 Gen/s</output></label>
+     <input id="speed" type="range" min="1" max="21" step="1" value="5">
+     <div class="section-label">VORBEREITETE LEVEL</div>
+     <div id="levels" class="levels"></div>
+     <div class="section-label pattern-heading">MUSTER ZUM PLATZIEREN</div>
+     <div id="patterns" class="patterns"></div>
+     <p class="hint" id="toolHint">Im Pausemodus Muster auswählen und ins Raster tippen. Mit „Einzelzelle“ Zellen an- oder ausschalten.</p>
+     <button id="reroll" class="share" hidden>Neue Zufallswelt würfeln</button>
+     <div class="note-panel"><div class="section-label">REGIENOTIZ · NUR MODERATOR</div><p id="directorNote"></p></div>
+     <div id="sharePanel" hidden>
+      <div class="section-label">ZUSCHAUER EINLADEN</div>
+      <div class="share-card"><img id="qrCode" src="/qr-live.svg" width="168" height="168" alt="QR-Code zur festen Zuschaueradresse"><div><b>Fester Zuschauerlink</b><p>Die Adresse bleibt auch nach einer erneuten Sitzung gleich.</p><a id="viewerLink" href="/live" target="_blank" rel="noopener">Zuschaueransicht öffnen</a></div></div>
+      <p class="share-url" id="viewerUrl"></p>
+      <button id="copy" class="share">Zuschauerlink kopieren</button>
+      <details><summary>Technische Sitzungskennung</summary><div class="session-code" id="sessionCode"></div></details>
+     </div>
+     <p id="error" class="error" role="alert"></p>
+    </aside>
+   </div>
+   <p id="viewerHint" class="viewer-hint" hidden>Diese Simulation wird vom Moderator gesteuert. Hell-/Dunkelmodus, Zoom und Vollbild funktionieren unabhängig auf Ihrem Gerät.</p>
+  </section>
+ </main>
+ <script src="/life.js"></script>
+ <script src="/app.js"></script>
+</body>
+</html>
